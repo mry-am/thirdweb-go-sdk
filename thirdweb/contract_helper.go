@@ -46,7 +46,7 @@ func (helper *contractHelper) getAddress() common.Address {
 }
 
 func (helper *contractHelper) mergeOverrides(opts *bind.TransactOpts) (*bind.TransactOpts, error) {
-	if (helper.nextOverrides != nil) {
+	if helper.nextOverrides != nil {
 		if err := mergo.Merge(opts, helper.nextOverrides); err != nil {
 			return nil, err
 		}
@@ -157,7 +157,15 @@ func (helper *contractHelper) AwaitTx(ctx context.Context, hash common.Hash) (*t
 	for {
 		if attempts >= maxAttempts {
 			fmt.Println("Retry attempts to get tx exhausted, tx might have failed")
-			return nil, syncError
+			tx, isPending, err := provider.TransactionByHash(ctx, hash)
+			if err != nil {
+				return nil, err
+			}
+			if isPending {
+				return tx, fmt.Errorf("transaction is still pending")
+			}
+			return tx, syncError
+			//return nil, syncError
 		}
 
 		if tx, isPending, err := provider.TransactionByHash(ctx, hash); err != nil {
