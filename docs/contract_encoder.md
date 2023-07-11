@@ -7,7 +7,7 @@ This interface is currently supported by all contract encoder classes and provid
 type ContractEncoder struct {}
 ```
 
-### func \(\*ContractEncoder\) [Encode](<https://github.com/thirdweb-dev/go-sdk/blob/main/thirdweb/contract_encoder.go#L59>)
+### func \(\*ContractEncoder\) [Encode](<https://github.com/mry-am/thirdweb-go-sdk/blob/main/thirdweb/contract_encoder.go#L59>)
 
 ```go
 func (encoder *ContractEncoder) Encode(ctx context.Context, signerAddress string, method string, args ...interface{}) (*types.Transaction, error)
@@ -36,7 +36,7 @@ fmt.Println(tx.Nonce())
 fmt.Println(tx.Value())
 ```
 
-## type [ContractEvent](<https://github.com/thirdweb-dev/go-sdk/blob/main/thirdweb/contract_events.go#L48-L52>)
+## type [ContractEvent](<https://github.com/mry-am/thirdweb-go-sdk/blob/main/thirdweb/contract_events.go#L48-L52>)
 
 ```go
 type ContractEvent struct {

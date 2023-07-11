@@ -25,7 +25,7 @@ import (
 // deployed using the thirdweb deploy flow:
 //
 //	import (
-//		"github.com/thirdweb-dev/go-sdk/v2/thirdweb"
+//		"github.com/mry-am/thirdweb-go-sdk/v2/thirdweb"
 //	)
 //
 //	privateKey = "..."
@@ -44,7 +44,7 @@ import (
 // contract instance for any contract using your contracts ABI:
 //
 //	import (
-//		"github.com/thirdweb-dev/go-sdk/v2/thirdweb"
+//		"github.com/mry-am/thirdweb-go-sdk/v2/thirdweb"
 //	)
 //
 //	privateKey = "..."

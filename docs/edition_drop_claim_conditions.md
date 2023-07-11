@@ -7,7 +7,7 @@ This interface is currently accessible from the Edition Drop contract contract t
 type EditionDropClaimConditions struct {}
 ```
 
-### func \(\*EditionDropClaimConditions\) [GetActive](<https://github.com/thirdweb-dev/go-sdk/blob/main/thirdweb/edition_drop_claim_conditions.go#L54>)
+### func \(\*EditionDropClaimConditions\) [GetActive](<https://github.com/mry-am/thirdweb-go-sdk/blob/main/thirdweb/edition_drop_claim_conditions.go#L54>)
 
 ```go
 func (claim *EditionDropClaimConditions) GetActive(ctx context.Context, tokenId int) (*ClaimConditionOutput, error)
@@ -34,7 +34,7 @@ fmt.Println("Price:", condition.Price)
 fmt.Println("Wait In Seconds", condition.WaitInSeconds)
 ```
 
-### func \(\*EditionDropClaimConditions\) [GetAll](<https://github.com/thirdweb-dev/go-sdk/blob/main/thirdweb/edition_drop_claim_conditions.go#L97>)
+### func \(\*EditionDropClaimConditions\) [GetAll](<https://github.com/mry-am/thirdweb-go-sdk/blob/main/thirdweb/edition_drop_claim_conditions.go#L97>)
 
 ```go
 func (claim *EditionDropClaimConditions) GetAll(ctx context.Context, tokenId int) ([]*ClaimConditionOutput, error)
@@ -62,7 +62,7 @@ fmt.Println("Price:", condition.Price)
 fmt.Println("Wait In Seconds", condition.WaitInSeconds)
 ```
 
-### func \(\*EditionDropClaimConditions\) [GetMerkleMetadata](<https://github.com/thirdweb-dev/go-sdk/blob/main/thirdweb/edition_drop_claim_conditions.go#L129>)
+### func \(\*EditionDropClaimConditions\) [GetMerkleMetadata](<https://github.com/mry-am/thirdweb-go-sdk/blob/main/thirdweb/edition_drop_claim_conditions.go#L129>)
 
 ```go
 func (claim *EditionDropClaimConditions) GetMerkleMetadata(ctx context.Context) (*map[string]string, error)

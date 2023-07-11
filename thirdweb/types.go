@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/thirdweb-dev/go-sdk/v2/abi"
+	"github.com/mry-am/thirdweb-go-sdk/v2/abi"
 )
 
 type SDKOptions struct {

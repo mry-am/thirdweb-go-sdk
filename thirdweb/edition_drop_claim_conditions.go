@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/thirdweb-dev/go-sdk/v2/abi"
+	"github.com/mry-am/thirdweb-go-sdk/v2/abi"
 )
 
 // This interface is currently accessible from the Edition Drop contract contract type

@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/mry-am/thirdweb-go-sdk/v2/thirdweb"
 	"github.com/spf13/cobra"
-	"github.com/thirdweb-dev/go-sdk/v2/thirdweb"
 )
 
 var (

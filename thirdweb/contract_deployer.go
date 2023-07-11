@@ -11,7 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/thirdweb-dev/go-sdk/v2/abi"
+	"github.com/mry-am/thirdweb-go-sdk/v2/abi"
 
 	gethAbi "github.com/ethereum/go-ethereum/accounts/abi"
 )
@@ -20,7 +20,7 @@ import (
 // just the thirdweb SDK. You can access the contract deployer interface as follows:
 //
 //	import (
-//		"github.com/thirdweb-dev/go-sdk/v2/thirdweb"
+//		"github.com/mry-am/thirdweb-go-sdk/v2/thirdweb"
 //	)
 //
 //	privateKey = "..."
@@ -52,8 +52,7 @@ func newContractDeployer(provider *ethclient.Client, privateKey string, storage 
 	if err != nil {
 		return nil, err
 	}
-	
-	
+
 	factoryAddress, err := getContractAddressByChainId(ChainID(chainId.Int64()), "TWFactory")
 	if err == nil {
 		factory, err := abi.NewTWFactory(common.HexToAddress(factoryAddress), provider)

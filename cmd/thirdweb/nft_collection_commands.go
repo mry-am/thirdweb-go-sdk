@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/mry-am/thirdweb-go-sdk/v2/thirdweb"
 	"github.com/spf13/cobra"
-	"github.com/thirdweb-dev/go-sdk/v2/thirdweb"
 )
 
 var (
@@ -143,9 +143,9 @@ var nftSigmintCmd = &cobra.Command{
 				MintEndTime:          100000000000000,
 				PrimarySaleRecipient: "0x0000000000000000000000000000000000000000",
 				Metadata: &thirdweb.NFTMetadataInput{
-					Name:  "Go #1",
+					Name:        "Go #1",
 					Description: "Minted with the Go SDK",
-					Image: imageFile,
+					Image:       imageFile,
 				},
 				RoyaltyRecipient: "0x0000000000000000000000000000000000000000",
 				RoyaltyBps:       0,

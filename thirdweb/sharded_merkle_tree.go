@@ -12,7 +12,7 @@ import (
 	solsha3 "github.com/miguelmota/go-solidity-sha3"
 	"golang.org/x/crypto/sha3"
 
-	merkletree "github.com/thirdweb-dev/go-sdk/v2/merkle"
+	merkletree "github.com/mry-am/thirdweb-go-sdk/v2/merkle"
 )
 
 type ShardedMerkleTree struct {

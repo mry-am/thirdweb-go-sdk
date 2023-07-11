@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/thirdweb-dev/go-sdk/v2/abi"
+	"github.com/mry-am/thirdweb-go-sdk/v2/abi"
 )
 
 // This interface is currently support by the Token contract. You can access
@@ -56,8 +56,8 @@ func (erc20 *ERC20) Get(ctx context.Context) (*Currency, error) {
 //
 // Example
 //
-// 	balance, err := contract.ERC20.Balance()
-// 	balanceValue := balance.DisplayValue
+//	balance, err := contract.ERC20.Balance()
+//	balanceValue := balance.DisplayValue
 func (erc20 *ERC20) Balance(ctx context.Context) (*CurrencyValue, error) {
 	return erc20.BalanceOf(ctx, erc20.helper.GetSignerAddress().String())
 }
@@ -72,9 +72,9 @@ func (erc20 *ERC20) Balance(ctx context.Context) (*CurrencyValue, error) {
 //
 // Example
 //
-// 	address := "{{wallet_address}}"
-// 	balance, err := contract.ERC20.BalanceOf()
-// 	balanceValue := balance.DisplayValue
+//	address := "{{wallet_address}}"
+//	balance, err := contract.ERC20.BalanceOf()
+//	balanceValue := balance.DisplayValue
 func (erc20 *ERC20) BalanceOf(ctx context.Context, address string) (*CurrencyValue, error) {
 	balanceOf, err := erc20.abi.BalanceOf(&bind.CallOpts{Context: ctx}, common.HexToAddress(address))
 	if err != nil {
@@ -92,7 +92,7 @@ func (erc20 *ERC20) BalanceOf(ctx context.Context, address string) (*CurrencyVal
 //
 // Example
 //
-// 	supply, err := contract.ERC20.TotalSupply(context.Background())
+//	supply, err := contract.ERC20.TotalSupply(context.Background())
 func (erc20 *ERC20) TotalSupply(ctx context.Context) (*CurrencyValue, error) {
 	totalySupply, err := erc20.abi.TotalSupply(&bind.CallOpts{Context: ctx})
 	if err != nil {
@@ -368,7 +368,6 @@ func (erc20 *ERC20) BurnFrom(ctx context.Context, holder string, amount float64)
 	return erc20.helper.AwaitTx(ctx, tx.Hash())
 }
 
-
 // Mint tokens
 //
 // @extension: ERC20Mintable
@@ -379,7 +378,7 @@ func (erc20 *ERC20) BurnFrom(ctx context.Context, holder string, amount float64)
 //
 // Example
 //
-// 	tx, err := contract.ERC20.Mint(context.Background(), 1)
+//	tx, err := contract.ERC20.Mint(context.Background(), 1)
 func (erc20 *ERC20) Mint(ctx context.Context, amount float64) (*types.Transaction, error) {
 	return erc20.MintTo(ctx, erc20.helper.GetSignerAddress().String(), amount)
 }

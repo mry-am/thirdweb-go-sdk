@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/thirdweb-dev/go-sdk/v2/abi"
+	"github.com/mry-am/thirdweb-go-sdk/v2/abi"
 )
 
 // The nft drop encoder class is used to get the unsigned transaction data for nft drop contract
@@ -20,7 +20,7 @@ import (
 // You can access the NFTDrop interface from the SDK as follows:
 //
 //	import (
-//		"github.com/thirdweb-dev/go-sdk/v2/thirdweb"
+//		"github.com/mry-am/thirdweb-go-sdk/v2/thirdweb"
 //	)
 //
 //	privateKey = "..."

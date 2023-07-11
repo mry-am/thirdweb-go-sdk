@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/thirdweb-dev/go-sdk/v2/thirdweb"
+	"github.com/mry-am/thirdweb-go-sdk/v2/thirdweb"
 )
 
 var (
