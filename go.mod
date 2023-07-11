@@ -1,4 +1,4 @@
-module github.com/mry-am/thirdweb-go-sdk/v2
+module github.com/mry-am/thirdweb-go-sdk
 
 go 1.20
 
@@ -16,9 +16,9 @@ require (
 	github.com/imdario/mergo v0.3.13
 	github.com/miguelmota/go-solidity-sha3 v0.1.1
 	github.com/mitchellh/mapstructure v1.5.0
+	github.com/mry-am/thirdweb-go-sdk/v2 v2.0.6
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.7.1
-	// github.com/mry-am/thirdweb-go-sdk/v2 v2.0.3
 	golang.org/x/crypto v0.0.0-20220516162934-403b01795ae8
 )
 
