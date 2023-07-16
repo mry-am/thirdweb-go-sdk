@@ -133,6 +133,10 @@ func (edition *Edition) MintAdditionalSupplyTo(ctx context.Context, to string, t
 	return edition.erc1155.MintAdditionalSupplyTo(ctx, to, tokenId, additionalSupply)
 }
 
+func (edition *Edition) MintAdditionalSupplyToWithEIP1559TipSelection(ctx context.Context, to string, tokenId int, additionalSupply int, tipname string) (*types.Transaction, error) {
+	return edition.erc1155.MintAdditionalSupplyToWithEIP1559TipSelection(ctx, to, tokenId, additionalSupply, tipname)
+}
+
 // Mint a batch of NFTs to the connected wallet.
 //
 // metadatasWithSupply: list of NFT metadatas with supplies to mint

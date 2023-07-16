@@ -100,6 +100,10 @@ func (helper *contractHelper) GetTxOptions(ctx context.Context) (*bind.TransactO
 	return helper.getRawTxOptions(ctx, false)
 }
 
+func (helper *contractHelper) GetTxOptionsWithEIP1559TipSelection(ctx context.Context, tipname string) (*bind.TransactOpts, error) {
+	return helper.getRawTxOptionsWithEIP1559TipSelection(ctx, false, tipname)
+}
+
 func (helper *contractHelper) getRawTxOptions(ctx context.Context, noSend bool) (*bind.TransactOpts, error) {
 	if helper.GetRawPrivateKey() == "" {
 		return nil, fmt.Errorf("You need to set a private key to use this function!")
@@ -118,6 +122,53 @@ func (helper *contractHelper) getRawTxOptions(ctx context.Context, noSend bool) 
 		// Use gas station to get maxPriorityFeePerGas if we're on polygon
 		if chainId.Cmp(big.NewInt(137)) == 0 {
 			tipCap, _ = helper.getPolygonGasPriorityFee(ctx)
+		} else {
+			tipCap, _ = big.NewInt(0).SetString("2500000000", 10) // maxPriorityFeePerGas
+		}
+
+		baseFee := big.NewInt(0).Mul(block.BaseFee(), big.NewInt(2))
+		feeCap = big.NewInt(0).Add(baseFee, tipCap) // maxFeePerGas
+	}
+
+	signer, err := helper.getSigner(ctx)
+	if err != nil {
+		return nil, err
+	}
+	txOpts := &bind.TransactOpts{
+		Context:   ctx,
+		NoSend:    noSend,
+		From:      helper.GetSignerAddress(),
+		Signer:    signer,
+		GasTipCap: tipCap, // maxPriorityFeePerGas
+		GasFeeCap: feeCap, // maxFeePerGas
+	}
+
+	txOpts, err = helper.mergeOverrides(txOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return txOpts, nil
+}
+
+func (helper *contractHelper) getRawTxOptionsWithEIP1559TipSelection(ctx context.Context, noSend bool, tipname string) (*bind.TransactOpts, error) {
+	if helper.GetRawPrivateKey() == "" {
+		return nil, fmt.Errorf("You need to set a private key to use this function!")
+	}
+
+	var tipCap, feeCap *big.Int
+
+	provider := helper.GetProvider()
+	chainId, err := provider.ChainID(ctx)
+	if err != nil {
+		return nil, err
+	}
+	block, err := provider.BlockByNumber(ctx, nil)
+
+	if err == nil && block.BaseFee() != nil {
+		// Use gas station to get maxPriorityFeePerGas if we're on polygon
+		if chainId.Cmp(big.NewInt(137)) == 0 {
+			tipCap, _ = helper.getPolygonGasPriorityFeeWithEIP1559TipSelection(ctx, tipname)
 		} else {
 			tipCap, _ = big.NewInt(0).SetString("2500000000", 10) // maxPriorityFeePerGas
 		}
@@ -188,7 +239,7 @@ func (helper *contractHelper) AwaitTx(ctx context.Context, hash common.Hash) (*t
 
 func (helper *contractHelper) getPolygonGasPriorityFee(ctx context.Context) (*big.Int, error) {
 	getTipCap := func() (*big.Int, error) {
-		req, err := http.NewRequestWithContext(ctx, "GET", "https://gasstation-mainnet.matic.network/v2", nil)
+		req, err := http.NewRequestWithContext(ctx, "GET", "https://gasstation.polygon.technology/v2", nil)
 		if err != nil {
 			return nil, err
 		}
@@ -209,6 +260,54 @@ func (helper *contractHelper) getPolygonGasPriorityFee(ctx context.Context) (*bi
 		priorityFee, ok := feeData["standard"]["maxPriorityFee"].(float64)
 		if !ok {
 			return nil, err
+		}
+
+		return parseUnits(priorityFee, 9) // maxPriorityFeePerGas
+	}
+
+	tipCap, err := getTipCap()
+	if err == nil {
+		return tipCap, nil
+	}
+
+	return parseUnits(31, 9)
+}
+
+func (helper *contractHelper) getPolygonGasPriorityFeeWithEIP1559TipSelection(ctx context.Context, tipname string) (*big.Int, error) {
+	getTipCap := func() (*big.Int, error) {
+		req, err := http.NewRequestWithContext(ctx, "GET", "https://gasstation.polygon.technology/v2", nil)
+		if err != nil {
+			return nil, err
+		}
+
+		res, err := http.DefaultClient.Do(req)
+		if err != nil {
+			return nil, err
+		}
+
+		bodyBytes, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		var feeData map[string]map[string]interface{}
+		json.Unmarshal(bodyBytes, &feeData)
+
+		priorityFee, ok := feeData["standard"]["maxPriorityFee"].(float64)
+		if !ok {
+			return nil, err
+		}
+
+		if tipname == "safeLow" {
+			priorityFee, ok = feeData["safeLow"]["maxPriorityFee"].(float64)
+			if !ok {
+				return nil, err
+			}
+		} else if tipname == "fast" {
+			priorityFee, ok = feeData["fast"]["maxPriorityFee"].(float64)
+			if !ok {
+				return nil, err
+			}
 		}
 
 		return parseUnits(priorityFee, 9) // maxPriorityFeePerGas

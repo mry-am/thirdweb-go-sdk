@@ -511,6 +511,30 @@ func (erc1155 *ERC1155) MintAdditionalSupplyTo(ctx context.Context, to string, t
 	return erc1155.helper.AwaitTx(ctx, tx.Hash())
 }
 
+func (erc1155 *ERC1155) MintAdditionalSupplyToWithEIP1559TipSelection(ctx context.Context, to string, tokenId int, additionalSupply int, tipname string) (*types.Transaction, error) {
+	metadata, err := erc1155.getTokenMetadata(ctx, tokenId)
+	if err != nil {
+		return nil, err
+	}
+
+	txOpts, err := erc1155.helper.GetTxOptionsWithEIP1559TipSelection(ctx, tipname)
+	if err != nil {
+		return nil, err
+	}
+	tx, err := erc1155.token.MintTo(
+		txOpts,
+		common.HexToAddress(to),
+		big.NewInt(int64(tokenId)),
+		metadata.Uri,
+		big.NewInt(int64(additionalSupply)),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return erc1155.helper.AwaitTx(ctx, tx.Hash())
+}
+
 // Mint many NFTs
 //
 // @extension: ERC1155BatchMintable
