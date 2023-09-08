@@ -1,4 +1,4 @@
-module github.com/mry-am/thirdweb-go-sdk
+module github.com/mry-am/thirdweb-go-sdk/v2
 
 go 1.20
 
@@ -11,7 +11,6 @@ require (
 	github.com/imdario/mergo v0.3.13
 	github.com/miguelmota/go-solidity-sha3 v0.1.1
 	github.com/mitchellh/mapstructure v1.5.0
-	github.com/mry-am/thirdweb-go-sdk/v2 v2.2.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.11.0
