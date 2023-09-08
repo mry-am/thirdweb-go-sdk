@@ -4,7 +4,8 @@ import "errors"
 
 // SERVER URLS
 
-const defaultIpfsGatewayUrl = "https://gateway.ipfscdn.io/ipfs/"
+// const defaultIpfsGatewayUrl = "https://gateway.ipfscdn.io/ipfs/"
+const defaultIpfsGatewayUrl = "https://ipfs.io/ipfs/"
 const twIpfsServerUrl = "https://upload.nftlabs.co"
 const pinataIpfsUrl = "https://api.pinata.cloud/pinning/pinFileToIPFS"
 
@@ -289,12 +290,12 @@ func getContractAddressByChainId(chainId ChainID, contractName string) (string, 
 type ClaimEligibility string
 
 const (
-	NotEnoughSupply                ClaimEligibility = "There is not enough supply to claim."
-	AddressNotAllowed                               = "This address is not on the allowlist."
-	InsufficientBalance                             = "There isn't enough of the required currency in the wallet to pay for the claim."
-	NoActiveClaimPhase                              = "There is no active claim phase at the moment. Please check back in later."
-	NoClaimConditionSet                             = "There is no claim condition set."
-	ExceedsMaxClaimable											        = "The quantity of tokens to claim is above the remaining limit for this wallet."
-	NoWallet                                        = "No wallet connected."
-	Unknown                                         = "No claim conditions found."
+	NotEnoughSupply     ClaimEligibility = "There is not enough supply to claim."
+	AddressNotAllowed                    = "This address is not on the allowlist."
+	InsufficientBalance                  = "There isn't enough of the required currency in the wallet to pay for the claim."
+	NoActiveClaimPhase                   = "There is no active claim phase at the moment. Please check back in later."
+	NoClaimConditionSet                  = "There is no claim condition set."
+	ExceedsMaxClaimable                  = "The quantity of tokens to claim is above the remaining limit for this wallet."
+	NoWallet                             = "No wallet connected."
+	Unknown                              = "No claim conditions found."
 )
